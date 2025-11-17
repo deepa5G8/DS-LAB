@@ -1,39 +1,36 @@
 #include <stdio.h>
-#define MAX 5
-void depth_first_search(int adj[][MAX], int visited[], int start)
+#define N 5
+void bfs(int adj[N][N], int start)
 {
-int stack[MAX];
-int top = -1, i;
-printf("%c-", start + 65);
-visited[start] = 1;
-stack[++top] = start;
-while (top != -1)
-{
-start = stack[top];
-for (i = 0; i < MAX; i++)
-{
-if (adj[start][i] && visited[i] == 0)
-{
-stack[++top] = i;
-printf("%c-", i + 65);
-visited[i] = 1;
-break;
-}
-}
-if (i == MAX)
-top--;
-}
+  int visited[N] = {0}, q[N], f = 0, r = 0;
+  int i, node;
+  q[r++] = start;
+  visited[start] = 1;
+  while (f < r)
+  {
+    node = q[f++];
+    printf("%c\t", node + 65);
+    for (i = 0; i < N; i++)
+
+    {
+
+      if(adj[node][i] == 1 && visited[i] == 0)
+
+      {
+        q[r++] = i;
+        visited[i] = 1;
+      }
+    }
+  }
 }
 int main()
 {
-int adj[MAX][MAX], visited[MAX] = {0};
-int i, j;
-printf("Enter the adjacency matrix:\n");
-for (i = 0; i < MAX; i++)
-for (j = 0; j < MAX; j++)
-scanf("%d", &adj[i][j]);
-printf("DFS Traversal: ");
-depth_first_search(adj, visited, 0);
-printf("\n");
-return 0;
+  int adj[N][N];
+  int i, j;
+  printf("Enter adjacency matrix:\n");
+  for (i = 0; i < N; i++)
+    for (j = 0; j < N; j++)
+      scanf("%d", &adj[i][j]);
+  bfs(adj, 0);
+  return 0;
 }
